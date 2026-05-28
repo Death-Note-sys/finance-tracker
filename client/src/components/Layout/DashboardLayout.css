@@ -1,0 +1,44 @@
+/* ========== Dashboard Layout ========== */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.dashboard-main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  padding: var(--space-2xl) var(--space-2xl) var(--space-3xl);
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .dashboard-main {
+    margin-left: 0;
+    padding: calc(var(--space-3xl) + 10px) var(--space-base) var(--space-2xl);
+  }
+}
+
+/* Page header */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2xl);
+  animation: fadeInUp 0.4s ease;
+  flex-wrap: wrap;
+  gap: var(--space-base);
+}
+
+.page-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.page-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin-top: var(--space-xs);
+}

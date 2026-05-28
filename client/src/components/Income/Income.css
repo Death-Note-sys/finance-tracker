@@ -1,0 +1,119 @@
+/* ========== Income Page ========== */
+.income-total {
+  margin-bottom: var(--space-xl);
+  animation: fadeInUp 0.4s ease 0.1s both;
+}
+
+.income-total-card {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-2xl);
+}
+
+.income-total-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.income-total-amount {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-success);
+}
+
+/* Income grid */
+.income-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--space-lg);
+}
+
+.income-card {
+  padding: var(--space-xl);
+  animation: fadeInUp 0.4s ease both;
+}
+
+.income-card:nth-child(1) { animation-delay: 0.05s; }
+.income-card:nth-child(2) { animation-delay: 0.1s; }
+.income-card:nth-child(3) { animation-delay: 0.15s; }
+.income-card:nth-child(4) { animation-delay: 0.2s; }
+
+.income-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.income-card-source {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.income-card-amount {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-success);
+}
+
+.income-card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-top: var(--space-md);
+}
+
+.income-card-date {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.income-card-notes {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-top: var(--space-sm);
+  line-height: 1.5;
+}
+
+.income-card-actions {
+  display: flex;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Frequency badge colors */
+.freq-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.freq-one-time { background: rgba(148,163,184,0.15); color: var(--text-secondary); }
+.freq-daily { background: rgba(6,182,212,0.15); color: var(--color-secondary-light); }
+.freq-weekly { background: rgba(124,58,237,0.15); color: var(--color-primary-light); }
+.freq-monthly { background: rgba(16,185,129,0.15); color: var(--color-success-light); }
+.freq-yearly { background: rgba(245,158,11,0.15); color: var(--color-warning-light); }
+
+.income-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+@media (max-width: 600px) {
+  .income-grid {
+    grid-template-columns: 1fr;
+  }
+}

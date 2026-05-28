@@ -1,0 +1,186 @@
+/* ========== Savings Page ========== */
+.savings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: var(--space-lg);
+}
+
+.savings-card {
+  padding: var(--space-xl);
+  animation: fadeInUp 0.4s ease both;
+  position: relative;
+  overflow: hidden;
+}
+
+.savings-card:nth-child(1) { animation-delay: 0.05s; }
+.savings-card:nth-child(2) { animation-delay: 0.1s; }
+.savings-card:nth-child(3) { animation-delay: 0.15s; }
+.savings-card:nth-child(4) { animation-delay: 0.2s; }
+
+.savings-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+}
+
+.savings-card-name {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.savings-card-status {
+  flex-shrink: 0;
+}
+
+/* Progress */
+.savings-progress {
+  margin-bottom: var(--space-lg);
+}
+
+.savings-progress-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+.savings-progress-amounts {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.savings-progress-amounts strong {
+  color: var(--text-primary);
+  font-size: var(--font-size-md);
+}
+
+.savings-progress-percent {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-primary-light);
+}
+
+.savings-progress-bar {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.savings-progress-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.savings-progress-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: shimmer 2s infinite;
+  background-size: 200% 100%;
+}
+
+.savings-progress-fill.complete {
+  background: var(--gradient-success);
+}
+
+/* Deadline */
+.savings-deadline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-bottom: var(--space-lg);
+}
+
+.savings-countdown {
+  font-weight: 600;
+}
+
+/* Actions */
+.savings-card-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.savings-add-funds-btn {
+  flex: 1;
+}
+
+/* Completed section */
+.savings-completed-section {
+  margin-top: var(--space-3xl);
+}
+
+.savings-completed-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--space-sm) 0;
+  margin-bottom: var(--space-lg);
+  transition: color var(--transition-fast);
+}
+
+.savings-completed-toggle:hover {
+  color: var(--text-primary);
+}
+
+.savings-completed-toggle svg {
+  transition: transform var(--transition-fast);
+}
+
+.savings-completed-toggle.open svg {
+  transform: rotate(90deg);
+}
+
+/* Celebration */
+.savings-celebration {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.celebration-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  animation: confetti-fall 2s ease-out forwards;
+}
+
+/* Add funds mini form */
+.add-funds-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.savings-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+@media (max-width: 600px) {
+  .savings-grid {
+    grid-template-columns: 1fr;
+  }
+}

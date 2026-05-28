@@ -1,0 +1,139 @@
+/* ========== Expenses Page ========== */
+.expenses-filters {
+  display: flex;
+  align-items: center;
+  gap: var(--space-base);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-xl);
+  animation: fadeInUp 0.4s ease 0.1s both;
+}
+
+.expenses-filter-input {
+  padding: 0.5rem 0.85rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+}
+
+.expenses-filter-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.expenses-monthly-total {
+  margin-left: auto;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-danger-light);
+}
+
+/* Expense Grid */
+.expenses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--space-lg);
+}
+
+.expense-card {
+  padding: var(--space-xl);
+  animation: fadeInUp 0.4s ease both;
+  position: relative;
+}
+
+.expense-card:nth-child(1) { animation-delay: 0.05s; }
+.expense-card:nth-child(2) { animation-delay: 0.1s; }
+.expense-card:nth-child(3) { animation-delay: 0.15s; }
+.expense-card:nth-child(4) { animation-delay: 0.2s; }
+.expense-card:nth-child(5) { animation-delay: 0.25s; }
+.expense-card:nth-child(6) { animation-delay: 0.3s; }
+
+.expense-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.expense-card-title {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.expense-card-amount {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-danger-light);
+}
+
+.expense-card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-top: var(--space-md);
+}
+
+.expense-card-date {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.expense-card-notes {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-top: var(--space-sm);
+  line-height: 1.5;
+}
+
+.expense-card-actions {
+  display: flex;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Category badge with color dot */
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.category-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Form in modal */
+.expense-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+@media (max-width: 600px) {
+  .expenses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .expenses-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .expenses-monthly-total {
+    margin-left: 0;
+  }
+}
