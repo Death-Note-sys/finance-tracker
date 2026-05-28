@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
 
 // Create a connection pool with promise wrapper
-const pool = mysql.createPool({
+const pool = mysql.createPool(process.env.DB_URL || {
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || '',
@@ -10,7 +10,6 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  // Enable named placeholders for cleaner queries
   namedPlaceholders: true,
 });
 
@@ -21,20 +20,25 @@ const pool = mysql.createPool({
 async function initializeDatabase() {
   let connection;
   try {
-    // Use a standalone connection (without pre-selected DB) to create the database itself
-    connection = await mysql.createConnection({
+    // Connect to the DB (using DB_URL if available, otherwise host/user/pass)
+    const dbConfig = process.env.DB_URL || {
       host: process.env.DB_HOST || 'localhost',
       user: process.env.DB_USER || 'root',
       password: process.env.DB_PASSWORD || '',
       port: parseInt(process.env.DB_PORT, 10) || 3306,
       multipleStatements: true,
-    });
+    };
+    
+    connection = await mysql.createConnection(dbConfig);
 
     const dbName = process.env.DB_NAME || 'finance_tracker';
 
-    // Create database if it doesn't exist
-    await connection.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\``);
-    await connection.query(`USE \`${dbName}\``);
+    // Only attempt to create the database if we are running locally (no DB_URL)
+    // Managed databases like Aiven do not grant CREATE DATABASE permissions.
+    if (!process.env.DB_URL) {
+      await connection.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\``);
+      await connection.query(`USE \`${dbName}\``);
+    }
 
     // ----- Users table -----
     await connection.query(`
