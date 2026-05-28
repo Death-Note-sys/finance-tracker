@@ -88,17 +88,25 @@ app.use((err, req, res, next) => {
 // Start Server
 // ─────────────────────────────────────────────────
 async function startServer() {
-  try {
-    // Initialize database tables before accepting requests
-    await initializeDatabase();
+  // Start listening FIRST so Render detects the port and doesn't time out
+  app.listen(PORT, () => {
+    console.log(`🚀 Finance Tracker API server running on http://localhost:${PORT}`);
+    console.log(`📋 Health check: http://localhost:${PORT}/api/health`);
+  });
 
-    app.listen(PORT, () => {
-      console.log(`🚀 Finance Tracker API server running on http://localhost:${PORT}`);
-      console.log(`📋 Health check: http://localhost:${PORT}/api/health`);
-    });
+  // Then initialize database tables (retry if connection is slow)
+  try {
+    await initializeDatabase();
   } catch (error) {
-    console.error('❌ Failed to start server:', error.message);
-    process.exit(1);
+    console.error('❌ Database initialization failed:', error.message);
+    console.error('⚠️  Server is running but database may not be ready. Retrying in 5s...');
+    setTimeout(async () => {
+      try {
+        await initializeDatabase();
+      } catch (retryError) {
+        console.error('❌ Database retry failed:', retryError.message);
+      }
+    }, 5000);
   }
 }
 
