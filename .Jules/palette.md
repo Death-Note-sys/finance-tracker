@@ -1,0 +1,3 @@
+## 2026-06-01 - Inconsistent accessibility in icon-only buttons
+**Learning:** Found a pattern of inconsistent accessibility in icon-only buttons across the application. Many pages (like Expenses and Savings) use `title` but no `aria-label`, while others (like Borrowing and Sidebar) lacked both. This results in missing tooltips for sighted users and missing labels for screen readers.
+**Action:** Created consistent ARIA labels and tooltips. Next time, consider proposing or implementing a reusable `<IconButton>` component to enforce these requirements automatically and simplify maintenance.
