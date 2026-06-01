@@ -252,10 +252,10 @@ const BorrowingPage = () => {
                     <HiOutlineCheck /> Settle
                   </button>
                   <div className="action-buttons">
-                    <button className="icon-btn" onClick={() => handleOpenModal(item)}>
+                    <button className="icon-btn" onClick={() => handleOpenModal(item)} aria-label="Edit entry" title="Edit entry">
                       <HiOutlinePencil />
                     </button>
-                    <button className="icon-btn danger" onClick={() => { setDeleteId(item.id); setIsConfirmOpen(true); }}>
+                    <button className="icon-btn danger" onClick={() => { setDeleteId(item.id); setIsConfirmOpen(true); }} aria-label="Delete entry" title="Delete entry">
                       <HiOutlineTrash />
                     </button>
                   </div>
