@@ -18,16 +18,32 @@ router.get('/summary', async (req, res) => {
     const currentMonth = now.getMonth() + 1;
     const currentYear = now.getFullYear();
 
-    // Total income this month
+    // Total income — ALL TIME (not just current month)
     const [incomeRows] = await pool.query(
+      `SELECT COALESCE(SUM(amount), 0) AS total
+       FROM income_sources
+       WHERE user_id = ?`,
+      [userId]
+    );
+
+    // Total expenses — ALL TIME (not just current month)
+    const [expenseRows] = await pool.query(
+      `SELECT COALESCE(SUM(amount), 0) AS total
+       FROM expenses
+       WHERE user_id = ?`,
+      [userId]
+    );
+
+    // This month's income (for the "this month" subtitle)
+    const [monthIncomeRows] = await pool.query(
       `SELECT COALESCE(SUM(amount), 0) AS total
        FROM income_sources
        WHERE user_id = ? AND MONTH(income_date) = ? AND YEAR(income_date) = ?`,
       [userId, currentMonth, currentYear]
     );
 
-    // Total expenses this month
-    const [expenseRows] = await pool.query(
+    // This month's expenses (for the "this month" subtitle)
+    const [monthExpenseRows] = await pool.query(
       `SELECT COALESCE(SUM(amount), 0) AS total
        FROM expenses
        WHERE user_id = ? AND MONTH(expense_date) = ? AND YEAR(expense_date) = ?`,
@@ -60,6 +76,12 @@ router.get('/summary', async (req, res) => {
 
     const totalIncome = parseFloat(incomeRows[0].total);
     const totalExpenses = parseFloat(expenseRows[0].total);
+    const totalSavings = parseFloat(savingsRows[0].total);
+    const totalLent = parseFloat(lentRows[0].total);
+    const totalBorrowed = parseFloat(borrowedRows[0].total);
+
+    // Net balance = all income earned - all expenses spent - money locked in savings - money lent out + money borrowed
+    const netBalance = parseFloat((totalIncome - totalExpenses - totalSavings - totalLent + totalBorrowed).toFixed(2));
 
     return res.json({
       success: true,
@@ -68,10 +90,12 @@ router.get('/summary', async (req, res) => {
         year: currentYear,
         total_income: totalIncome,
         total_expenses: totalExpenses,
-        net_balance: parseFloat((totalIncome - totalExpenses - parseFloat(savingsRows[0].total) - parseFloat(lentRows[0].total) + parseFloat(borrowedRows[0].total)).toFixed(2)),
-        total_savings: parseFloat(savingsRows[0].total),
-        total_lent: parseFloat(lentRows[0].total),
-        total_borrowed: parseFloat(borrowedRows[0].total),
+        month_income: parseFloat(monthIncomeRows[0].total),
+        month_expenses: parseFloat(monthExpenseRows[0].total),
+        net_balance: netBalance,
+        total_savings: totalSavings,
+        total_lent: totalLent,
+        total_borrowed: totalBorrowed,
       },
     });
   } catch (error) {
