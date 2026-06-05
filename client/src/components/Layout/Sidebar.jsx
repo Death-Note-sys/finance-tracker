@@ -39,7 +39,7 @@ function Sidebar({ isOpen, onToggle }) {
   return (
     <>
       {/* Mobile toggle */}
-      <button className="sidebar-toggle" onClick={onToggle}>
+      <button className="sidebar-toggle" onClick={onToggle} aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}>
         {isOpen ? <HiX /> : <HiOutlineMenu />}
       </button>
 
